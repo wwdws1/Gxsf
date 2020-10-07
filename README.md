@@ -1,8 +1,8 @@
 # What I have done in the Gxsf.
 # 我在广西师大这几年都干了点啥。
 ## 更新日志
-- 2020.10.07
-上传“第二届北京谱仪分析入门培训”相关课件--Powered by Zhenxiu Huang
+- 2020.10.07  
+上传“第二届北京谱仪分析入门培训”相关课件 -- Powered by Zhenxiu Huang
 - 2020.09.27  
 更新：ROOT课件、画图和主程序Code、可参考的论文；重新整理文件
 - 2020.09.18  
