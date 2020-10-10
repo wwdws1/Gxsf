@@ -1,14 +1,16 @@
 # What I have done in the Gxsf.
 # 我在广西师大这几年都干了点啥。
 ## 更新日志
+- 2020.10.10  
+转载《linux、vim和shell的新手入门手册》到BESIII文件。 -- Powered by Congyu Li, et al.  
 - 2020.10.07  
-上传“第二届北京谱仪分析入门培训”相关课件 -- Powered by Zhenxiu Huang
+上传“第二届北京谱仪分析入门培训”相关课件。 -- Powered by Zhenxiu Huang  
 - 2020.09.27  
-更新：ROOT课件、画图和主程序Code、可参考的论文；重新整理文件
+更新：ROOT课件、画图脚本和主程序Code、可参考的论文；重新整理文件。  
 - 2020.09.18  
-更新README  
+更新README。  
 - 2020.07.31  
-更新了BESIII相关的文件  
+更新了BESIII相关的文件。  
 - 2020.07.26  
 更新了量子场论、粒子物理学和粒子物理实验方法三门课的相关文件。  
 - 2019.12.17  
