@@ -2,19 +2,19 @@
 # 我在广西师大这几年都干了点啥。
 ## 更新日志
 - 2020.10.10  
-转载《linux、vim和shell的新手入门手册》到BESIII文件。 -- Powered by Congyu Li, et al.  
+转载《[linux、vim和shell的新手入门手册](https://gitee.com/wwdws1/Gxsf/blob/master/Documents%20of%20BESIII/linux%E3%80%81vim%E5%92%8Cshell%E7%9A%84%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.pdf)》到[BESIII文件](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII)。 -- Powered by Congyu Li, et al.  
 - 2020.10.07  
-上传“第二届北京谱仪分析入门培训”相关课件。 -- Powered by Zhenxiu Huang  
+上传“[第二届北京谱仪分析入门培训](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/The%202nd%20BES%20Analysis%20Introduction%20Training)”相关课件。 -- Powered by Zhenxiu Huang  
 - 2020.09.27  
-更新：ROOT课件、画图脚本和主程序Code、可参考的论文；重新整理文件。  
+更新：[ROOT课件](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/CERN_ROOT%20Courseware)、[画图脚本](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Draw%20code)和[主程序](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Main%20program%20code)Code、[可参考的论文](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Paper)和可能用到的[工具文件](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Tools)；重新整理文件。  
 - 2020.09.18  
 更新README。  
 - 2020.07.31  
 更新了BESIII相关的文件。  
 - 2020.07.26  
-更新了量子场论、粒子物理学和粒子物理实验方法三门课的相关文件。  
+更新了[量子场论](https://gitee.com/wwdws1/Gxsf/tree/master/Quantum%20Field%20Theory)、[粒子物理学](https://gitee.com/wwdws1/Gxsf/tree/master/Particle%20Physics)和[粒子物理实验方法](https://gitee.com/wwdws1/Gxsf/tree/master/Particle%20Physics%20Experiment)三门课的相关文件。  
 - 2019.12.17  
-更新了数值计算期末试题的解决方案，包含 `C++` ， `Mathematic` ， `matlab`  三种语言。  
+更新了[数值计算期末试题](https://gitee.com/wwdws1/Gxsf/tree/master/Numeral%20Calculations/Final%20Exam)的解决方案，包含 `C++` ， `Mathematic` ， `matlab`  三种语言。  
 ## 食用方法\(仅供新手参考\)  
 0. 现在可以直接下载需要的文件，不用全部下载/克隆到本地了。  
 1. 安装git  
