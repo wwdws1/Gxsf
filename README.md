@@ -2,10 +2,12 @@
 # 我在广西师大这几年都干了点啥。
 ## 更新日志
 - *Coming soon*  
-FDC相关内容
+FDC相关内容  
+- 2020.11.16  
+更新[画图脚本](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Draw%20code)，详细说明在`Draw Code`目录下  
 - 2020.11.13  
 上传“[2020实验物理中心研究生入所培训](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/2020%20Experimental%20Physics%20Center%20Graduate%20Admission%20Training)”相关课件。 -- Powered by Honghong Zhang  
-上传我个人修改的`Roofit`的Code：[Roofit_Mpi0.cxx](https://gitee.com/wwdws1/Gxsf/blob/master/Documents%20of%20BESIII/Code/Draw%20code/Roofit_Mpi0.cxx)
+~~上传我个人修改的`Roofit`的Code：Roofit_Mpi0.cxx~~  
 - 2020.10.10  
 转载《[linux、vim和shell的新手入门手册](https://gitee.com/wwdws1/Gxsf/blob/master/Documents%20of%20BESIII/linux%E3%80%81vim%E5%92%8Cshell%E7%9A%84%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.pdf)》到[BESIII文件](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII)。 -- Powered by Congyu Li, et al.  
 - 2020.10.07  

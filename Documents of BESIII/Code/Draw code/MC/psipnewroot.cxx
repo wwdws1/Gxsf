@@ -1,6 +1,23 @@
 {
-	TFile *f1 = new TFile("../root/0912INMC4_pi0.root");
-	TFile *newfile = new TFile("../root/0912INMC4_pi0_bkg.root", "recreate");
+	//---------pi0----------
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/pi0MC.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/pi0MC6.root", "recreate");
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/jpsiMC.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/jpsiMC5_pi0_NoGam_test.root", "recreate");
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/LambdaSigmapi0MC.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/LambdaSigmapi0MC5_pi0_NoGam_test.root", "recreate");
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/LambdaSigmapimMC.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/LambdaSigmapimMC5_pi0_NoGam_test.root", "recreate");
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/INMC.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/INMC6_pi0.root", "recreate");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/INMC5_pi0_NoGam_test.root", "recreate");
+	//---------eta----------
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/etaMC.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/etaMC5.root", "recreate");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/etafdcMC5.root", "recreate");
+	TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/INMC.root");
+	TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/INMC4_eta_FitGam.root", "recreate");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912MCmix/INMC4_eta_NoGam_test.root", "recreate");
 	//======================= for mu infor ==================================
 	TTree *chain = (TTree *)f1->Get("trkRes");
 	if (chain == 0)
@@ -27,8 +44,8 @@
 
 	double orig_m2gamma, orig_mlambda, orig_mlambdabar, orig_mtotal;
 	double lambda_chisq, lambdabar_chisq, chisq_4C;
-	double lambda_lth, lambda_lth_re, lambdabar_lth, lambdabar_lth_re;
-	double orig_m2gammalambda, orig_m2gammalambdabar;
+	double orig_m2gammalambda, orig_m2gammalambdabar, orig_mlambdalambdabar, orig_mgamma1lambdalambdabar;
+	double orig_mgamma2lambda;
 
 	/*
 	chain->SetBranchAddress("mdc_px", mdc_px);
@@ -49,11 +66,12 @@
 	chain->SetBranchAddress("lambda_chisq", &lambda_chisq);
 	chain->SetBranchAddress("lambdabar_chisq", &lambdabar_chisq);
 	chain->SetBranchAddress("4C_chisq", &chisq_4C);
-	chain->SetBranchAddress("lambda_lth", &lambda_lth);
-	chain->SetBranchAddress("lambda_lth_re", &lambda_lth_re);
-	chain->SetBranchAddress("lambdabar_lth", &lambdabar_lth);
-	chain->SetBranchAddress("lambdabar_lth_re", &lambdabar_lth_re);
 	chain->SetBranchAddress("orig_m2gammalambda", &orig_m2gammalambda);
+	chain->SetBranchAddress("orig_mlambdalambdabar", &orig_mlambdalambdabar);
+	chain->SetBranchAddress("orig_mgamma1lambdalambdabar", &orig_mgamma1lambdalambdabar);
+	chain->SetBranchAddress("orig_mgamma2lambda", &orig_mgamma2lambda);
+
+	//mgamma2lambdalambdabar
 
 	TTree *t1 = chain->CloneTree(0);
 
@@ -73,7 +91,7 @@
 	t1->Branch("lambda_lth_re", &lambdab_lth_re, "lambda_lth_re/D");
 	*/
 
-	int Pass0 = 0, Pass1 = 0, Pass2 = 0, Pass3 = 0, Pass4 = 0, Pass5 = 0, Pass6 = 0, Pass7 = 0;
+	int Pass0 = 0, Pass1 = 0, Pass2 = 0, Pass3 = 0, Pass4 = 0, Pass5 = 0, Pass6 = 0, Pass7 = 0, Pass8 = 0;
 	int nevent = (int)chain->GetEntries();
 	//cout << "Events" << nevent << endl;
 	for (int i = 0; i < nevent; i++)
@@ -82,14 +100,18 @@
 
 		Pass0++;
 
-		if (chisq_4C > 40)
+		if (orig_m2gamma < 0.115 || orig_m2gamma > 0.155) // pi0
 		{
-			continue;
+			//continue;
+		}
+		if (orig_m2gamma < 0.515 || orig_m2gamma > 0.570) // eta
+		{
+			//continue;
 		}
 
 		Pass1++;
 
-		if (orig_m2gamma < 0.115 || orig_m2gamma > 0.155)
+		if (orig_mlambda < 1.111 || orig_mlambda > 1.121)
 		{
 			continue;
 		}
@@ -103,19 +125,40 @@
 
 		Pass3++;
 
-		if (orig_mlambda < 1.111 || orig_mlambda > 1.121)
+		if (chisq_4C > 15) // pi0
+		{
+			//continue;
+		}
+		if (chisq_4C > 40) // eta
 		{
 			continue;
 		}
 
 		Pass4++;
 
-		if (orig_m2gammalambda > 1.7)
+		if (orig_mlambdalambdabar > 3.4) // pi0
+		{
+			//continue;
+		}
+
+		Pass5++;
+
+		if (orig_mlambdalambdabar > 3.077 && orig_mlambdalambdabar < 3.117)
 		{
 			continue;
 		}
 
-		Pass5++;
+		Pass6++;
+
+		if (orig_m2gamma < 0.08 || orig_m2gamma > 0.19) // pi0
+		{
+			//continue;
+		}
+		if (orig_m2gamma < 0.46 || orig_m2gamma > 0.63) // eta
+		{
+			continue;
+		}
+		Pass7++;
 
 		t1->Fill();
 	}
@@ -125,7 +168,9 @@
 	cout << "Pass3==" << Pass3 << endl;
 	cout << "Pass4==" << Pass4 << endl;
 	cout << "Pass5==" << Pass5 << endl;
-	//cout << "Pass6==" << Pass6 << endl;
+	cout << "Pass6==" << Pass6 << endl;
+	cout << "Pass7==" << Pass7 << endl;
+	//cout << "Pass8==" << Pass8 << endl;
 
 	/*
 	c1_1->Update();

@@ -1,19 +1,19 @@
 {
     using namespace RooFit;
 
-    TFile *f1 = new TFile("../../../0912MCmix/root/pi0MC5_NoGam.root");
+    TFile *f1 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/pi0MC5_NoGam.root");
     TTree *t1 = (TTree *)f1->Get("trkRes");
 
-    TFile *f2 = new TFile("../../root/data5_pi0_NoGam.root");
+    TFile *f2 = new TFile("/mnt/e/Work/IHEPBOX/root/0912data/data5_pi0_NoGam.root");
     TTree *t2 = (TTree *)f2->Get("trkRes");
 
-    TFile *f4 = new TFile("../../../0912MCmix/root/LambdaSigmapi0MC5_pi0_NoGam.root");
+    TFile *f4 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/LambdaSigmapi0MC5_pi0_NoGam.root");
     TTree *t4 = (TTree *)f4->Get("trkRes");
 
-    TFile *f5 = new TFile("../../../0912MCmix/root/LambdaSigmapimMC5_pi0_NoGam.root");
+    TFile *f5 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/LambdaSigmapimMC5_pi0_NoGam.root");
     TTree *t5 = (TTree *)f5->Get("trkRes");
 
-    TFile *f6 = new TFile("../../../0912MCmix/root/jpsiMC5_pi0_NoGam.root");
+    TFile *f6 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/jpsiMC5_pi0_NoGam.root");
     TTree *t6 = (TTree *)f5->Get("trkRes");
 
     Double_t xlow1 = 0.08;
