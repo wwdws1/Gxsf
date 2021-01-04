@@ -4,7 +4,7 @@
 - *Coming soon*  
 FDC相关内容  
 - 2021.01.04  
-上传[显著性计算工具](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Tools/significance.cxx)\(Powered by root\)，使用方式为`root ./significance.cxx`  
+上传[显著性计算工具](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Tools/significance.cxx)\(Powered by root\)，使用方式为`root ./significance.cxx`。  
 \(Roofit得到的为Likelihood值，FDC得到的s值\)
 - 2020.11.16  
 更新[画图脚本](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Draw%20code)，详细说明在`Draw Code`目录下  
