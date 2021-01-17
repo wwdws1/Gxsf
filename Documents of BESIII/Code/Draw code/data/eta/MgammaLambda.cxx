@@ -15,7 +15,7 @@ void MgammaLambda()
 	ch3->Add("E:/Work/IHEPBOX/root/0912data/data5_eta.root");
 
 	TChain *ch4 = new TChain("trkRes");
-	ch4->Add("E:/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/INMC4_eta_gammaLambdaSigmaBKG.root");
+	ch4->Add("E:/Work/IHEPBOX/root/0912MCmix/Lambda1670MC5_eta.root");
 	//ch4->Add("../../0912MCmix/root/gammaMC5_pi0.root");
 
 	int clr;
@@ -76,7 +76,7 @@ void MgammaLambda()
 	h1a->Scale(0.8 * h1c->Integral() / h1a->Integral(), "nosw2");
 	h1b->Scale(h1c->Integral() / h1b->Integral());
 	h1c->Sumw2();
-	h1d->Scale(0.75 * h1c->Integral() / h1d->Integral(), "nosw2");
+	h1d->Scale(0.32 * h1c->Integral() / h1d->Integral(), "nosw2");
 	//h1d->Scale(h1c->GetMaximum() / h1d->GetMaximum(), "nosw2");
 	//h1a->Scale(h1b->Integral()/h1a->Integral());
 
@@ -110,7 +110,7 @@ void MgammaLambda()
 	lg1->AddEntry(h1b, "IN MC", "pl");
 	lg1->AddEntry(h1c, "DATA", "pl");
 	//lg1->AddEntry(h1d, "BKG(#Sigma^{0}#bar{#Sigma}^{0})", "pl");
-	lg1->AddEntry(h1d, "BKG(#gamma#Lambda#Sigma)", "l");
+	lg1->AddEntry(h1d, "#Lambda[1670]", "l");
 	lg1->SetFillColor(0);
 	lg1->SetTextFont(42);
 	lg1->SetTextSize(0.05);

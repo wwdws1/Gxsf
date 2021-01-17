@@ -1,8 +1,8 @@
 #include <math.h>
-void MgammaLambdabar()
+void DecayLength()
 {
 	gStyle->SetOptStat(kFALSE);
-	TCanvas *c1 = new TCanvas("c1", "M_gammaLambdabar.eps", 250, 50, 800, 600);
+	TCanvas *c1 = new TCanvas("c1", "DecayLength_Lambdabar.eps", 250, 50, 800, 600);
 
 	TChain *ch1 = new TChain("trkRes");
 	ch1->Add("E:/Work/IHEPBOX/root/0912MCmix/pi0MC6.root");

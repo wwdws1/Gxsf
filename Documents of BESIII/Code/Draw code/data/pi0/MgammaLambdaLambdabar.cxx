@@ -15,10 +15,21 @@ void MgammaLambdaLambdabar()
 	ch3->Add("E:/Work/IHEPBOX/root/0912data/data6_pi0.root");
 
 	TChain *ch4 = new TChain("trkRes");
-	ch4->Add("E:/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/Sigma0MC4_pi0.root");
-	//ch4->Add("../../0912MCmix/root/gammaMC5_pi0.root");
+	ch4->Add("E:/Work/IHEPBOX/root/0912MCmix/LambdaSigmapimMC6_pi0.root");
 
-	int clr = 2;
+	TChain *ch5 = new TChain("trkRes");
+	ch5->Add("E:/Work/IHEPBOX/root/0912MCmix/LambdaSigmapi0MC6_pi0.root");
+
+	TChain *ch6 = new TChain("trkRes");
+	ch6->Add("E:/Work/IHEPBOX/root/0912MCmix/jpsiMC6_pi0.root");
+
+	TChain *ch7 = new TChain("trkRes");
+	ch7->Add("E:/Work/IHEPBOX/root/0912MCmix/gammaMC6_pi0.root");
+
+	int clr;
+
+	clr = 1;
+
 	Double_t xlow1;
 	Double_t xup1;
 	Int_t nbins1;
@@ -40,6 +51,9 @@ void MgammaLambdaLambdabar()
 	TH1F *h1b = new TH1F("h1b", "", nbins1, xlow1, xup1);
 	TH1F *h1c = new TH1F("h1c", "", nbins1, xlow1, xup1);
 	TH1F *h1d = new TH1F("h1d", "", nbins1, xlow1, xup1);
+	TH1F *h1e = new TH1F("h1e", "", nbins1, xlow1, xup1);
+	TH1F *h1f = new TH1F("h1f", "", nbins1, xlow1, xup1);
+	TH1F *h1g = new TH1F("h1g", "", nbins1, xlow1, xup1);
 
 	if (clr == 1)
 	{
@@ -47,6 +61,9 @@ void MgammaLambdaLambdabar()
 		ch2->Draw("orig_mgamma1lambdalambdabar>>h1b");
 		ch3->Draw("orig_mgamma1lambdalambdabar>>h1c");
 		ch4->Draw("orig_mgamma1lambdalambdabar>>h1d");
+		ch5->Draw("orig_mgamma1lambdalambdabar>>h1e");
+		ch6->Draw("orig_mgamma1lambdalambdabar>>h1f");
+		ch7->Draw("orig_mgamma1lambdalambdabar>>h1g");
 	}
 	else if (clr == 2)
 	{
@@ -54,6 +71,9 @@ void MgammaLambdaLambdabar()
 		ch2->Draw("orig_mgamma2lambdalambdabar>>h1b");
 		ch3->Draw("orig_mgamma2lambdalambdabar>>h1c");
 		ch4->Draw("orig_mgamma2lambdalambdabar>>h1d");
+		ch5->Draw("orig_mgamma2lambdalambdabar>>h1e");
+		ch6->Draw("orig_mgamma2lambdalambdabar>>h1f");
+		ch7->Draw("orig_mgamma2lambdalambdabar>>h1g");
 	}
 
 	//ch1->Draw("orig_mlambda>>h1a", "orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119");
@@ -66,15 +86,23 @@ void MgammaLambdaLambdabar()
 	h1c->GetYaxis()->SetTitle(Form("Events/%.5f GeV/c^{2}", (xup1 - xlow1) / nbins1));
 	h1c->GetXaxis()->CenterTitle();
 	h1c->GetYaxis()->CenterTitle();
-	h1a->SetLineColor(4);
+	h1a->SetLineColor(kBlue);
 	h1a->SetLineWidth(1);
 
-	h1a->Scale(0.8 * h1c->Integral() / h1a->Integral(), "nosw2");
+	h1a->Scale(0.35 * h1c->Integral() / h1a->Integral(), "nosw2");
 	h1b->Scale(h1c->Integral() / h1b->Integral());
 	h1c->Sumw2();
-	h1d->Scale(h1c->Integral() / h1d->Integral(), "nosw2");
+	h1d->Scale(0.05 * h1c->Integral() / h1d->Integral(), "nosw2");
+	h1e->Scale(0.35 * h1c->Integral() / h1e->Integral(), "nosw2");
+	h1f->Scale(0.1 * h1c->Integral() / h1f->Integral(), "nosw2");
+	h1g->Scale(0.15 * h1c->Integral() / h1g->Integral(), "nosw2");
 	//h1d->Scale(h1c->GetMaximum() / h1d->GetMaximum(), "nosw2");
 	//h1a->Scale(h1b->Integral()/h1a->Integral());
+
+	h1a->Add(h1d, 1);
+	h1a->Add(h1e, 1);
+	h1a->Add(h1f, 1);
+	h1a->Add(h1g, 1);
 
 	h1b->SetMarkerStyle(22);
 	h1b->SetMarkerColor(2);
@@ -88,9 +116,10 @@ void MgammaLambdaLambdabar()
 	h1c->SetLineColor(1);
 	h1c->SetLineWidth(1);
 
-	h1d->SetLineColor(8);
-	h1d->SetLineWidth(1);
-	//h1d->SetLineStyle(7);
+	h1d->SetLineColor(kCyan);
+	h1e->SetLineColor(kPink);
+	h1f->SetLineColor(kOrange);
+	h1g->SetLineColor(kGreen);
 
 	//h1b->SetLineStyle(1);
 	//h1a->SetMinimum(0);//Outer shaft border minimum
@@ -98,15 +127,20 @@ void MgammaLambdaLambdabar()
 	h1c->Draw("");
 	h1b->Draw("SAME");
 	h1a->Draw("SAME");
-	//h1d->Draw("SAME");
+	h1d->Draw("SAME");
+	h1e->Draw("SAME");
+	h1f->Draw("SAME");
+	h1g->Draw("SAME");
 
 	TLegend *lg1 = new TLegend(0.68, 0.62, 0.86, 0.88);
 	lg1->SetHeader("#sqrt{S}=3.686GeV");
-	lg1->AddEntry(h1a, "EX MC", "l");
+	lg1->AddEntry(h1a, "EX MC(S+B)", "l");
 	lg1->AddEntry(h1b, "IN MC", "pl");
 	lg1->AddEntry(h1c, "DATA", "pl");
-	//lg1->AddEntry(h1d, "BKG(#Sigma^{0}#bar{#Sigma}^{0})", "l");
-	//lg1->AddEntry(h1d, "BKG(#gamma#Lambda#bar{#Lambda})", "l");
+	lg1->AddEntry(h1d, "BKG(#Sigma^{+}#bar{#Lambda}#pi^{-})", "l");
+	lg1->AddEntry(h1e, "BKG(#Sigma^{0}#bar{#Lambda}#pi^{0})", "l");
+	lg1->AddEntry(h1f, "BKG(#pi^{+}#pi^{-}J/#psi)", "l");
+	lg1->AddEntry(h1g, "BKG(#Lambda#bar{#Lambda}#gamma)", "l");
 	lg1->SetFillColor(0);
 	lg1->SetTextFont(42);
 	lg1->SetTextSize(0.05);

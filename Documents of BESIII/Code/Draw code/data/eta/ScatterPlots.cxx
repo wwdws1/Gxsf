@@ -2,29 +2,29 @@
 void ScatterPlots()
 {
 	gStyle->SetOptStat(kFALSE);
-	TCanvas *c1 = new TCanvas("c1", "Scatter Plots.eps", 800, 600);
+	TCanvas *c1 = new TCanvas("c1", "Scatter Plots.eps", 250, 50, 800, 600);
 
 	TChain *ch1 = new TChain("trkRes");
-	ch1->Add("E:/Work/IHEPBOX/root/0912data/data4_eta_FitGam.root");
+	ch1->Add("E:/Work/IHEPBOX/root/0912data/data5_eta_fdc.root");
 	//ch1->Add("../root/MC_eta.root");
 	//ch1->Add("../root/INMC.root");
 
-	Double_t xlow1 = 0.46;
-	Double_t xup1 = 0.63;
-	Int_t nbinsx1 = 68;
-	Double_t ylow1 = 1.1;
-	Double_t yup1 = 2.0;
-	Int_t nbinsy1 = 45;
+	Double_t xlow1 = 1.55;
+	Double_t xup1 = 2.65;
+	Int_t nbinsx1 = 55;
+	Double_t ylow1 = 1.55;
+	Double_t yup1 = 2.65;
+	Int_t nbinsy1 = 55;
 
 	TH2F *h2a = new TH2F("h2a", "", nbinsx1, xlow1, xup1, nbinsy1, ylow1, yup1);
 
-	ch1->Draw("orig_mgamma2lambda:orig_m2gamma>>h2a");
+	ch1->Draw("orig_m2gammalambda:orig_m2gammalambdabar>>h2a");
 	//ch1->Draw("orig_m2gammalambda:orig_m2gammalambdabar>>h2a", "orig_mlambda > 1.112 && orig_mlambda < 1.120");
 	//ch1->Draw("orig_m2gammalambda:orig_m2gammalambdabar>>h2a", "orig_mlambda > 1.112 && orig_mlambda < 1.120 && orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119");
 	//ch1->Draw("orig_m2gammalambda:orig_m2gammalambdabar>>h2a", "orig_mlambda > 1.112 && orig_mlambda < 1.120 && orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119 && orig_m2gamma > 0.121 && orig_m2gamma < 0.149");
 	//ch1->Draw("orig_m2gammalambda:orig_m2gammalambdabar>>h2a", "orig_mlambda > 1.112 && orig_mlambda < 1.120 && orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119 && orig_m2gamma > 0.121 && orig_m2gamma < 0.149 && 4C_chisq < 41");
-	h2a->GetXaxis()->SetTitle("M(#gamma#gamma) (GeV/c^{2})");
-	h2a->GetYaxis()->SetTitle("M(#gamma_{2}p#pi^{-}) (GeV/c^{2})");
+	h2a->GetXaxis()->SetTitle("M(#eta#Lambda) (GeV/c^{2})");
+	h2a->GetYaxis()->SetTitle("M(#eta#bar{#Lambda}) (GeV/c^{2})");
 	//h2a->GetYaxis()->SetTitle("#chi_{4C}^{2}(GeV/c^{2})");
 	h2a->GetXaxis()->CenterTitle();
 	h2a->GetYaxis()->CenterTitle();
@@ -42,8 +42,8 @@ void ScatterPlots()
 	//h0b->SetLineStyle(1);
 	//h2a->SetMinimum(0);//Outer shaft border minimum
 	//h0b->SetMinimum(0);//Outer shaft border minimum
-	h2a->Draw("SCAT");
-	//h2a->Draw("COLZ");
+	//h2a->Draw("SCAT");
+	h2a->Draw("COLZ");
 	//h0b->Draw("same");
 
 	/*

@@ -1,14 +1,20 @@
 {
     using namespace RooFit;
 
-    TFile *f1 = new TFile("/mnt/e/Work/IHEPBOX/root/psip/mc/pi0MC10_FitGam.root");
+    TFile *f1 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/pi0MC5_NoGam.root");
     TTree *t1 = (TTree *)f1->Get("trkRes");
 
-    TFile *f2 = new TFile("/mnt/e/Work/IHEPBOX/root/psip/data/data10_pi0_FitGam.root");
+    TFile *f2 = new TFile("/mnt/e/Work/IHEPBOX/root/0912data/data5_pi0_NoGam.root");
     TTree *t2 = (TTree *)f2->Get("trkRes");
 
-    TFile *f3 = new TFile("/mnt/e/Work/IHEPBOX/root/psip/mc/LambdaSigmapi0MC10_pi0_FitGam.root");
-    TTree *t3 = (TTree *)f3->Get("trkRes");
+    TFile *f4 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/LambdaSigmapi0MC5_pi0_NoGam.root");
+    TTree *t4 = (TTree *)f4->Get("trkRes");
+
+    TFile *f5 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/LambdaSigmapimMC5_pi0_NoGam.root");
+    TTree *t5 = (TTree *)f5->Get("trkRes");
+
+    TFile *f6 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/jpsiMC5_pi0_NoGam.root");
+    TTree *t6 = (TTree *)f5->Get("trkRes");
 
     Double_t xlow1 = 0.08;
     Double_t xup1 = 0.19;
@@ -36,17 +42,37 @@
     RooRealVar c1("c1", "c1", -10000.0, 10000.0);
     RooChebychev bkgpdf("bkgpdf", "bkgpdf", orig_m2gamma, RooArgList(c0, c1));
 
-    RooDataSet lspmc("lspmc", "lspmc", t3, orig_m2gamma);
+    RooDataSet lspmc("lspmc", "lspmc", t4, orig_m2gamma);
     RooKeysPdf lspmcpdf1("lspmcpdf1", "lspmcpdf1", orig_m2gamma, lspmc, RooKeysPdf::MirrorBoth, 1);
+    //RooRealVar mean_lspmc2("mean_lspmc2", "mean_lspmc2", -100.0, 100.0);
+    //RooRealVar width_lspmc2("width_lspmc2", "#width_lspmc2", 0.0, 10.0);
+    //RooGaussModel lspmcpdf2("lspmcpdf2", "lspmcpdf2", orig_m2gamma, mean_lspmc2, width_lspmc2);
+    RooFFTConvPdf lspmcpdf("lspmcpdf", "lspmcpdf", orig_m2gamma, lspmcpdf1, gausspdf);
+
+    RooDataSet lsp1mc1("lsp1mc1", "lsp1mc1", t5, orig_m2gamma);
+    RooKeysPdf lsp1mcpdf1("lsp1mcpdf1", "lsp1mcpdf1", orig_m2gamma, lsp1mc1, RooKeysPdf::MirrorBoth, 1);
+    //RooRealVar mean_lsp1mc2("mean_lsp1mc2", "mean_lsp1mc2", -100.0, 100.0);
+    //RooRealVar width_lsp1mc2("width_lsp1mc2", "#width_lsp1mc2", 0.0, 10.0);
+    //RooGaussModel lsp1mcpdf2("lsp1mcpdf2", "lsp1mcpdf2", orig_m2gamma, mean_lsp1mc2, width_lsp1mc2);
+    RooFFTConvPdf lsp1mcpdf("lsp1mcpdf", "lsp1mcpdf", orig_m2gamma, lsp1mcpdf1, gausspdf);
+
+    RooDataSet jpsimc1("jpsimc1", "jpsimc1", t6, orig_m2gamma);
+    RooKeysPdf jpsimcpdf1("jpsimcpdf1", "jpsimcpdf1", orig_m2gamma, jpsimc1, RooKeysPdf::MirrorBoth, 1);
+    //RooRealVar mean_jpsimc2("mean_jpsimc2", "mean_jpsimc2", -100.0, 100.0);
+    //RooRealVar width_jpsimc2("width_jpsimc2", "#width_jpsimc2", 0.0, 10.0);
+    //RooGaussModel jpsimcpdf2("jpsimcpdf2", "jpsimcpdf2", orig_m2gamma, mean_jpsimc2, width_jpsimc2);
+    RooFFTConvPdf jpsimcpdf("jpsimcpdf", "jpsimcpdf", orig_m2gamma, jpsimcpdf1, gausspdf);
 
     //-----Construct signal+background PDF------
 
-    RooRealVar nsig("nsig", "nsig", 30.0, 0.0, 35.0);
-    RooRealVar nbkg("nbkg", "nbkg", 10.0, 0.0, 35.0);
-    RooRealVar nlsp("nlsp", "nlsp", 19.3);
+    RooRealVar nsig("nsig", "nsig", 30, 0, 121);
+    RooRealVar nbkg("nbkg", "nbkg", 30, 0, 121);
+    RooRealVar nlsp("nlsp", "nlsp", 43, 43, 43);
+    RooRealVar nlsp1("nlsp1", "nlsp1", 5, 5, 5);
+    RooRealVar njpsi("njpsi", "njpsi", 13, 13, 13);
 
-    RooArgList allpdf(sigpdf, bkgpdf, lspmcpdf1);
-    RooArgList alln(nsig, nbkg, nlsp);
+    RooArgList allpdf(sigpdf, bkgpdf, lspmcpdf1, lsp1mcpdf1, jpsimcpdf1);
+    RooArgList alln(nsig, nbkg, nlsp, nlsp1, njpsi);
 
     RooAddPdf sum("sum", "sum", allpdf, alln);
 
@@ -66,9 +92,11 @@
 
     data.plotOn(mpi0frame, MarkerStyle(8), MarkerColor(kBlack), MarkerSize(0.8), Binning(nbins1), LineColor(kBlack));
     sum.plotOn(mpi0frame, RooFit::LineColor(kBlack));
-    sum.plotOn(mpi0frame, Components("sigpdf"), LineColor(kRed));     //, LineStyle(kDashed));
-    sum.plotOn(mpi0frame, Components("bkgpdf"), LineColor(kGreen));   //, LineStyle(kDashed));
-    sum.plotOn(mpi0frame, Components("lspmcpdf1"), LineColor(kBlue)); //, LineStyle(kDashed));
+    sum.plotOn(mpi0frame, Components("sigpdf"), LineColor(kRed));        //, LineStyle(kDashed));
+    sum.plotOn(mpi0frame, Components("bkgpdf"), LineColor(kGreen));      //, LineStyle(kDashed));
+    sum.plotOn(mpi0frame, Components("lspmcpdf1"), LineColor(kBlue));    //, LineStyle(kDashed));
+    sum.plotOn(mpi0frame, Components("lsp1mcpdf1"), LineColor(kCyan));   //, LineStyle(kDashed));
+    sum.plotOn(mpi0frame, Components("jpsimcpdf1"), LineColor(kOrange)); //, LineStyle(kDashed));
 
     mpi0frame->Draw();
 
@@ -101,6 +129,14 @@
     TString Par4E = Form("%3.1f", nlsp.getError());
     TString Par4 = "N_{#Lambda#Sigma#pi^{0}} = " + Par4V;
 
+    TString Par5V = Form("%5.1f", nlsp1.getVal());
+    TString Par5E = Form("%3.1f", nlsp1.getError());
+    TString Par5 = "N_{#Lambda#Sigma#pi^{-}} = " + Par5V;
+
+    TString Par6V = Form("%5.1f", njpsi.getVal());
+    TString Par6E = Form("%3.1f", njpsi.getError());
+    TString Par6 = "N_{#pi^{+}#pi^{-}J/#psi} = " + Par6V;
+
     TString Par10C = Form("%5.2f", curve->chiSquare(*histo, nParsToFit));
     TString Par10 = "#chi^{2}/ndf = " + Par10C;
 
@@ -113,6 +149,12 @@
 
     text = pt->AddText(Par4);
     ((TText *)pt->GetListOfLines()->Last())->SetTextColor(kBlue);
+
+    text = pt->AddText(Par5);
+    ((TText *)pt->GetListOfLines()->Last())->SetTextColor(kCyan);
+
+    text = pt->AddText(Par6);
+    ((TText *)pt->GetListOfLines()->Last())->SetTextColor(kOrange);
 
     text = pt->AddText(Par10);
 

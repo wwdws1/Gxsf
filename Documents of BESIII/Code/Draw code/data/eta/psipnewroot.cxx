@@ -1,6 +1,10 @@
 {
-	TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912data/data.root");
-	TFile *newfile = new TFile("E:/Work/IHEPBOX/root/0912data/data5_eta.root", "recreate");
+	TFile *f1 = new TFile("E:/Work/IHEPBOX/root/psip/data/data.root");
+	TFile *newfile = new TFile("E:/Work/IHEPBOX/root/psip/data/data8_eta_sideband.root", "recreate");
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/psip/data/13_3650data.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/psip/data/13_3650data4_eta_FitGam.root", "recreate");
+	//TFile *f1 = new TFile("E:/Work/IHEPBOX/root/psip/data/3773data.root");
+	//TFile *newfile = new TFile("E:/Work/IHEPBOX/root/psip/data/3773data7_eta_FitGam.root", "recreate");
 	//======================= for mu infor ==================================
 	TTree *chain = (TTree *)f1->Get("trkRes");
 	if (chain == 0)
@@ -23,6 +27,8 @@
 	double orig_m2gamma, orig_mlambda, orig_mlambdabar, orig_mtotal;
 	double lambda_chisq, lambdabar_chisq, chisq_4C;
 	double orig_m2gammalambda, orig_m2gammalambdabar, orig_mlambdalambdabar, orig_mgamma2lambdalambdabar;
+	double chisq_4C_2m1, chisq_4C_2m3;
+	double orig_recoilmpippim;
 
 	/*
 	chain->SetBranchAddress("mdc_px", mdc_px);
@@ -46,6 +52,9 @@
 	chain->SetBranchAddress("orig_m2gammalambda", &orig_m2gammalambda);
 	chain->SetBranchAddress("orig_mlambdalambdabar", &orig_mlambdalambdabar);
 	chain->SetBranchAddress("orig_mgamma2lambdalambdabar", &orig_mgamma2lambdalambdabar);
+	chain->SetBranchAddress("2m1_4C_chisq", &chisq_4C_2m1);
+	chain->SetBranchAddress("2m3_4C_chisq", &chisq_4C_2m3);
+	chain->SetBranchAddress("orig_recoilmpippim", &orig_recoilmpippim);
 
 	TTree *t1 = chain->CloneTree(0);
 
@@ -65,7 +74,7 @@
 	t1->Branch("lambda_lth_re", &lambdab_lth_re, "lambda_lth_re/D");
 	*/
 
-	int Pass0 = 0, Pass1 = 0, Pass2 = 0, Pass3 = 0, Pass4 = 0, Pass5 = 0, Pass6 = 0, Pass7 = 0;
+	int Pass0 = 0, Pass1 = 0, Pass2 = 0, Pass3 = 0, Pass4 = 0, Pass5 = 0, Pass6 = 0, Pass7 = 0, Pass8 = 0;
 	int nevent = (int)chain->GetEntries();
 	//cout << "Events" << nevent << endl;
 	for (int i = 0; i < nevent; i++)
@@ -75,6 +84,26 @@
 		Pass0++;
 
 		if (orig_m2gamma < 0.515 || orig_m2gamma > 0.570) // eta
+		{
+			//continue;
+		}
+		if (orig_m2gamma < 0.46 || orig_m2gamma > 0.63) // fit eta
+		{
+			//continue;
+		}
+		if (orig_m2gamma < 0.525 || orig_m2gamma > 0.560) // fdc eta
+		{
+			//continue;
+		}
+		if (orig_m2gamma < 0.47) // eta sideband
+		{
+			continue;
+		}
+		if (orig_m2gamma > 0.505 && orig_m2gamma < 0.58)
+		{
+			continue;
+		}
+		if (orig_m2gamma > 0.615)
 		{
 			continue;
 		}
@@ -109,12 +138,26 @@
 
 		Pass5++;
 
-		if (orig_m2gamma < 0.46 || orig_m2gamma > 0.63) // eta
+		if (chisq_4C_2m1 >= 0) // pi0
 		{
-			//continue;
+			continue;
 		}
 
 		Pass6++;
+
+		if (chisq_4C_2m3 >= 0) // pi0
+		{
+			continue;
+		}
+
+		Pass7++;
+
+		if (orig_recoilmpippim > 3.087 && orig_recoilmpippim < 3.107)
+		{
+			continue;
+		}
+
+		Pass8++;
 
 		t1->Fill();
 	}
@@ -125,7 +168,8 @@
 	cout << "Pass4==" << Pass4 << endl;
 	cout << "Pass5==" << Pass5 << endl;
 	cout << "Pass6==" << Pass6 << endl;
-	//cout << "Pass7==" << Pass7 << endl;
+	cout << "Pass7==" << Pass7 << endl;
+	cout << "Pass8==" << Pass8 << endl;
 
 	/*
 	c1_1->Update();
@@ -138,4 +182,5 @@
 
 	t1->Write();
 	f1->Close();
+	newfile->Close();
 }

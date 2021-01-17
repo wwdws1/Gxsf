@@ -1,20 +1,20 @@
 #include <math.h>
-void Meta()
+void Meta_fdc()
 {
 	gStyle->SetOptStat(kFALSE);
 	TCanvas *c1 = new TCanvas("c1", "M_eta.eps", 250, 50, 800, 600);
 
 	TChain *ch1 = new TChain("trkRes");
-	ch1->Add("E:/Work/IHEPBOX/root/psip/mc/etaMC4_FitGam.root");
+	ch1->Add("E:/Work/IHEPBOX/root/0912MCmix/etaMC4_NoGam.root");
 
 	TChain *ch2 = new TChain("trkRes");
-	ch2->Add("E:/Work/IHEPBOX/root/psip/mc/INMC4_eta_FitGam.root");
+	ch2->Add("E:/Work/IHEPBOX/root/0912MCmix/INMC4_eta_NoGam.root");
 
 	TChain *ch3 = new TChain("trkRes");
-	ch3->Add("E:/Work/IHEPBOX/root/psip/data/data4_eta_FitGam.root");
+	ch3->Add("E:/Work/IHEPBOX/root/0912data/data4_eta_NoGam.root");
 
 	TChain *ch4 = new TChain("trkRes");
-	ch4->Add("E:/Work/IHEPBOX/root/psip/data/3773data4_eta_FitGam.root");
+	ch4->Add("E:/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/INMC4_eta_gammaLambdaSigmaBKG.root");
 
 	Double_t xlow1 = 0.46;
 	Double_t xup1 = 0.63;
@@ -43,29 +43,27 @@ void Meta()
 	h1a->SetLineColor(4);
 	h1a->SetLineWidth(1);
 
-	h1a->Scale((249.0 / 430.0) * (h1c->Integral() / h1a->Integral()), "nosw2");
+	h1a->Scale(0.8 * (h1c->Integral() / h1a->Integral()), "nosw2");
 	h1b->Scale((h1c->Integral() / h1b->Integral()));
 	h1c->Sumw2();
-	h1d->Scale(0.2389); // * (h1c->Integral() / h1d->Integral()), "nosw2");
+	h1d->Scale((h1c->Integral() / h1d->Integral()), "nosw2");
 	//h1b->Scale(h1c->GetMaximum() / h1b->GetMaximum());
 	//h1b->Scale(h1a->Integral()/h1b->Integral());
 
-	h1b->SetMarkerStyle(22);   // 22
-	h1b->SetMarkerColor(kRed); // 2
+	h1b->SetMarkerStyle(22); // 22
+	h1b->SetMarkerColor(2);	 // 2
 	h1b->SetMarkerSize(1);
-	h1b->SetLineColor(kRed); // 2
+	h1b->SetLineColor(2); // 2
 	h1b->SetLineWidth(1);
 
 	h1c->SetMarkerStyle(8);
-	h1c->SetMarkerColor(kBlack);
+	h1c->SetMarkerColor(1);
 	h1c->SetMarkerSize(1);
-	h1c->SetLineColor(kBlack);
+	h1c->SetLineColor(1);
 	h1c->SetLineWidth(1);
 
-	h1d->SetMarkerStyle(22);
-	h1d->SetMarkerColor(8);
-	h1d->SetMarkerSize(1);
 	h1d->SetLineColor(8);
+	//h1d->SetLineStyle(7);
 	h1d->SetLineWidth(1);
 
 	//h1b->SetLineStyle(1);
@@ -74,30 +72,66 @@ void Meta()
 	h1c->Draw("");
 	//h1b->Draw("SAME");
 	h1a->Draw("SAME");
-	h1d->Draw("SAME");
+	//h1d->Draw("SAME");
 
 	TLegend *lg1 = new TLegend(0.68, 0.68, 0.86, 0.88);
 	lg1->SetHeader("#sqrt{S}=3.686GeV");
-	lg1->AddEntry(h1a, "Signal MC", "l");
+	lg1->AddEntry(h1a, "SIG MC", "l");
 	//lg1->AddEntry(h1b, "IN MC", "pl");
 	lg1->AddEntry(h1c, "DATA", "pl");
-	lg1->AddEntry(h1d, "QED(3773)", "pl");
+	//lg1->AddEntry(h1d, "BKG(#gamma#Lambda#Sigma)", "l");
 	lg1->SetFillColor(0);
 	lg1->SetTextFont(42);
 	lg1->SetTextSize(0.05);
 	lg1->SetBorderSize(0);
 	lg1->Draw();
-	/*
-	TArrow *x1 = new TArrow(0.515, 0, 0.515, 35, 0.03, "<");
+
+	TLegend *lg2 = new TLegend(0.15, 0.48, 0.33, 0.58);
+	lg2->SetHeader("SIDEBAND");
+	lg2->SetFillColor(0);
+	lg2->SetTextFont(42);
+	lg2->SetTextSize(0.05);
+	lg2->SetBorderSize(0);
+	lg2->Draw();
+
+	TLegend *lg3 = new TLegend(0.65, 0.48, 0.83, 0.58);
+	lg3->SetHeader("SIDEBAND");
+	lg3->SetFillColor(0);
+	lg3->SetTextFont(42);
+	lg3->SetTextSize(0.05);
+	lg3->SetBorderSize(0);
+	lg3->Draw();
+
+	TArrow *x1 = new TArrow(0.525, 0, 0.525, 35, 0.03, "<");
 	x1->SetLineColor(2);
 	x1->SetLineWidth(1);
 	x1->Draw();
 
-	TArrow *x2 = new TArrow(0.570, 0, 0.570, 35, 0.03, "<");
+	TArrow *x2 = new TArrow(0.560, 0, 0.560, 35, 0.03, "<");
 	x2->SetLineColor(2);
 	x2->SetLineWidth(1);
 	x2->Draw();
-	*/
+
+	TArrow *x3 = new TArrow(0.470, 0, 0.470, 35, 0.03, "<");
+	x3->SetLineColor(2);
+	x3->SetLineWidth(1);
+	x3->Draw();
+
+	TArrow *x4 = new TArrow(0.505, 0, 0.505, 35, 0.03, "<");
+	x4->SetLineColor(2);
+	x4->SetLineWidth(1);
+	x4->Draw();
+
+	TArrow *x5 = new TArrow(0.580, 0, 0.580, 35, 0.03, "<");
+	x5->SetLineColor(2);
+	x5->SetLineWidth(1);
+	x5->Draw();
+
+	TArrow *x6 = new TArrow(0.615, 0, 0.615, 35, 0.03, "<");
+	x6->SetLineColor(2);
+	x6->SetLineWidth(1);
+	x6->Draw();
+
 	c1->Update();
 
 	//c1->SaveAs("./M_pi0_1.eps");

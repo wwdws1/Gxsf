@@ -5,16 +5,16 @@ void Mpi0()
 	TCanvas *c1 = new TCanvas("c1", "M_pi0.eps", 250, 50, 800, 600);
 
 	TChain *ch1 = new TChain("trkRes");
-	ch1->Add("E:/Work/IHEPBOX/root/0912MCmix/pi0MC5_NoGam.root");
+	ch1->Add("E:/Work/IHEPBOX/root/psip/mc/pi0MC10_FitGam.root");
 
 	TChain *ch2 = new TChain("trkRes");
-	ch2->Add("E:/Work/IHEPBOX/root/0912MCmix/INMC5_pi0_NoGam.root");
+	ch2->Add("E:/Work/IHEPBOX/root/psip/mc/INMC10_pi0_FitGam.root");
 
 	TChain *ch3 = new TChain("trkRes");
-	ch3->Add("E:/Work/IHEPBOX/root/0912data/data5_pi0_NoGam.root");
+	ch3->Add("E:/Work/IHEPBOX/root/psip/data/data10_pi0_FitGam.root");
 
 	TChain *ch4 = new TChain("trkRes");
-	ch4->Add("E:/Work/IHEPBOX/root/0912MCmix/old/2020.09.28/gammaMC5_pi0_NoGam_test.root");
+	ch4->Add("E:/Work/IHEPBOX/root/psip/data/3773data10_pi0_FitGam.root");
 
 	Double_t xlow1 = 0.08;
 	Double_t xup1 = 0.190;
@@ -42,25 +42,28 @@ void Mpi0()
 	h1a->SetLineColor(4);
 	h1a->SetLineWidth(1);
 
-	h1a->Scale((9.0 / 13.0) * (h1c->Integral() / h1a->Integral()), "nosw2");
+	h1a->Scale((30.0 / 54.0) * (h1c->Integral() / h1a->Integral()), "nosw2");
 	h1b->Scale(h1c->Integral() / h1b->Integral());
 	h1c->Sumw2();
-	h1d->Scale((2.5 / 13.0) * (h1c->Integral() / h1d->Integral()), "nosw2");
+	h1d->Scale(0.2389); // * (h1c->Integral() / h1d->Integral()), "nosw2");
 	//h1b->Scale(h1c->GetMaximum() / h1b->GetMaximum());
 	//h1b->Scale(h1a->Integral()/h1b->Integral());
 
 	h1b->SetMarkerStyle(22);
-	h1b->SetMarkerColor(2);
+	h1b->SetMarkerColor(kRed);
 	h1b->SetMarkerSize(1);
-	h1b->SetLineColor(2);
+	h1b->SetLineColor(kRed);
 	h1b->SetLineWidth(1);
 
-	h1c->SetMarkerStyle(8); // 22
-	h1c->SetMarkerColor(1); // 2
+	h1c->SetMarkerStyle(8);		 // 22
+	h1c->SetMarkerColor(kBlack); // 2
 	h1c->SetMarkerSize(1);
-	h1c->SetLineColor(1); // 2
+	h1c->SetLineColor(kBlack); // 2
 	h1c->SetLineWidth(1);
 
+	h1d->SetMarkerStyle(22);
+	h1d->SetMarkerColor(8);
+	h1d->SetMarkerSize(1);
 	h1d->SetLineColor(8);
 	h1d->SetLineWidth(1);
 	//h1d->SetLineStyle(7);
@@ -69,16 +72,16 @@ void Mpi0()
 	//h1a->SetMinimum(0);//Outer shaft border minimum
 	//h1b->SetMinimum(0);//Outer shaft border minimum
 	h1c->Draw("");
-	h1b->Draw("SAME");
+	//h1b->Draw("SAME");
 	h1a->Draw("SAME");
 	h1d->Draw("SAME");
 
 	TLegend *lg1 = new TLegend(0.68, 0.68, 0.86, 0.88);
 	lg1->SetHeader("#sqrt{S}=3.686GeV");
-	lg1->AddEntry(h1a, "EX MC", "l");
-	lg1->AddEntry(h1b, "IN MC", "pl");
+	lg1->AddEntry(h1a, "Signal MC", "l");
+	//lg1->AddEntry(h1b, "IN MC", "pl");
 	lg1->AddEntry(h1c, "DATA", "pl");
-	lg1->AddEntry(h1d, "BKG(#Lambda#bar{#Lambda}#gamma)", "l");
+	lg1->AddEntry(h1d, "QED(3773)", "pl");
 	//lg1->AddEntry(h1d, "BKG(#gamma#Lambda#bar{#Lambda})", "l");
 	lg1->SetFillColor(0);
 	lg1->SetTextFont(42);

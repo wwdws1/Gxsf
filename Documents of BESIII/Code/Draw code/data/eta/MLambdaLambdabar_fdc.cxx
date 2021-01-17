@@ -1,31 +1,30 @@
 #include <math.h>
-void MLambdaeta_fdc()
+void MLambdaLambdabar_fdc()
 {
 	gStyle->SetOptStat(kFALSE);
-	TCanvas *c1 = new TCanvas("c1", "M_Lambdaeta_fdc.eps", 250, 50, 800, 600);
+	TCanvas *c1 = new TCanvas("c1", "M_LambdaLambdabar.eps", 250, 50, 800, 600);
 
 	TFile *f1 = new TFile("E:/Work/IHEPBOX/root/psip/mc/dplot_eta.root");
+
 	TFile *f2 = new TFile("E:/Work/IHEPBOX/root/psip/mc/dplot_eta_bkg.root");
 
 	TFile *f3 = new TFile("E:/Work/IHEPBOX/root/psip/mc/mplot_eta_1670.root");
 
-	double xlow1 = 1.55;
-	double xup1 = 2.65;
-	int nbins1 = 55;
+	Double_t xlow1 = 2.0;
+	Double_t xup1 = 3.8;
+	Int_t nbins1 = 90;
 
-	TH1F *h1a = (TH1F *)f1->Get("h1");
-	TH1F *h1b = (TH1F *)f2->Get("h1");
-	TH1F *h1c = (TH1F *)f3->Get("h1");
-	TH1F *h1d = (TH1F *)f3->Get("h25");
-	TH1F *h1e = (TH1F *)f3->Get("h37");
+	TH1F *h1a = (TH1F *)f1->Get("h3");
+	TH1F *h1b = (TH1F *)f2->Get("h3");
+	TH1F *h1c = (TH1F *)f3->Get("h3");
+	TH1F *h1d = (TH1F *)f3->Get("h27");
+	TH1F *h1e = (TH1F *)f3->Get("h39");
 
-	h1a->GetXaxis()->SetTitle("M(p#pi^{-}#gamma#gamma) (GeV/c^{2})");
+	h1a->GetXaxis()->SetTitle("M(p#pi^{-}#bar{p}#pi^{+}) (GeV/c^{2})");
 	h1a->GetYaxis()->SetTitle(Form("Events/%.5f GeV/c^{2}", (xup1 - xlow1) / nbins1));
 	h1a->GetXaxis()->CenterTitle();
 	h1a->GetYaxis()->CenterTitle();
-	h1a->GetYaxis()->SetRangeUser(0, 30);
-	//h1a->SetLineColor(kBlue);
-	//h1a->SetLineWidth(1);
+	//h1a->GetYaxis()->SetRangeUser(0, 70);
 
 	h1a->Sumw2();
 	h1b->Scale(0.14 * h1a->Integral() / h1b->Integral(), "nosw2");
@@ -75,12 +74,17 @@ void MLambdaeta_fdc()
 	lg1->SetBorderSize(0);
 	lg1->Draw();
 	/*
-	TArrow *x1 = new TArrow(1.7, 0, 1.7, 100, 0.03, "<");
+	TArrow *x1 = new TArrow(3.4, 0, 3.4, 300, 0.03, "<");
 	x1->SetLineColor(2);
 	x1->SetLineWidth(1);
 	x1->Draw();
 
-	TArrow *x2 = new TArrow(1.121, 0, 1.121, 200, 0.03, "<");
+	TArrow *x1 = new TArrow(3.077, 0, 3.077, 590, 0.03, "<");
+	x1->SetLineColor(2);
+	x1->SetLineWidth(1);
+	x1->Draw();
+
+	TArrow *x2 = new TArrow(3.117, 0, 3.117, 590, 0.03, "<");
 	x2->SetLineColor(2);
 	x2->SetLineWidth(1);
 	x2->Draw();

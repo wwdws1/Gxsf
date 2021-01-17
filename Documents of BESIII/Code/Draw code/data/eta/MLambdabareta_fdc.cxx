@@ -2,95 +2,71 @@
 void MLambdabareta_fdc()
 {
 	gStyle->SetOptStat(kFALSE);
-	TCanvas *c1 = new TCanvas("c1", "M_Lambdaeta_fdc.eps", 250, 50, 800, 600);
+	TCanvas *c1 = new TCanvas("c1", "M_Lambdabareta_fdc.eps", 250, 50, 800, 600);
 
-	TChain *ch1 = new TChain("trkRes");
-	ch1->Add("E:/Work/IHEPBOX/root/0912MCmix/etafdcMC5.root");
-	//ch1->Add("../root/MC_eta.root");
+	TFile *f1 = new TFile("E:/Work/IHEPBOX/root/psip/mc/dplot_eta.root");
 
-	TChain *ch2 = new TChain("trkRes");
-	//ch2->Add("../root/data4_pi0.root");
-	//ch2->Add("../../0912MCmix/root/Sigma0MC4_pi0.root");
-	ch2->Add("E:/Work/IHEPBOX/root/0912MCmix/INMC5_eta.root");
+	TFile *f2 = new TFile("E:/Work/IHEPBOX/root/psip/mc/dplot_eta_bkg.root");
 
-	TChain *ch3 = new TChain("trkRes");
-	ch3->Add("E:/Work/IHEPBOX/root/0912data/data5_eta.root");
+	TFile *f3 = new TFile("E:/Work/IHEPBOX/root/psip/mc/mplot_eta_1670.root");
 
-	TChain *ch4 = new TChain("trkRes");
-	ch4->Add("E:/Work/IHEPBOX/root/0912MCmix/Sigma0MC4_pi0.root");
-	//ch4->Add("../../0912MCmix/root/gammaMC5_pi0.root");
+	double xlow1 = 1.55;
+	double xup1 = 2.65;
+	int nbins1 = 55;
 
-	TFile *f1 = new TFile("E:/Work/IHEPBOX/root/0912MCmix/mplot_eta.root");
+	TH1F *h1a = (TH1F *)f1->Get("h2");
+	TH1F *h1b = (TH1F *)f2->Get("h2");
+	TH1F *h1c = (TH1F *)f3->Get("h2");
+	TH1F *h1d = (TH1F *)f3->Get("h26");
+	TH1F *h1e = (TH1F *)f3->Get("h38");
 
-	Double_t xlow1 = 1.55;
-	Double_t xup1 = 2.65;
-	Int_t nbins1 = 55;
+	h1a->GetXaxis()->SetTitle("M(#bar{p}#pi^{+}#gamma#gamma) (GeV/c^{2})");
+	h1a->GetYaxis()->SetTitle(Form("Events/%.5f GeV/c^{2}", (xup1 - xlow1) / nbins1));
+	h1a->GetXaxis()->CenterTitle();
+	h1a->GetYaxis()->CenterTitle();
 
-	TH1F *h1a = new TH1F("h1a", "", nbins1, xlow1, xup1);
-	TH1F *h1b = new TH1F("h1b", "", nbins1, xlow1, xup1);
-	TH1F *h1c = new TH1F("h1c", "", nbins1, xlow1, xup1);
-	TH1F *h1d = new TH1F("h1d", "", nbins1, xlow1, xup1);
+	h1a->Sumw2();
+	h1b->Scale(0.14 * h1a->Integral() / h1b->Integral(), "nosw2");
+	h1c->Scale(0.86 * h1a->Integral() / h1c->Integral(), "nosw2");
+	h1d->Scale(0.86 * 1.24 * h1a->Integral() / h1d->Integral(), "nosw2");
+	h1e->Scale(0.86 * 0.56 * h1a->Integral() / h1e->Integral(), "nosw2");
 
-	TH1F *h1e = (TH1F *)f1->Get("h2");
-
-	ch1->Draw("orig_m2gammalambdabar>>h1a");
-	ch2->Draw("orig_m2gammalambdabar>>h1b");
-	ch3->Draw("orig_m2gammalambdabar>>h1c");
-	ch4->Draw("orig_m2gammalambdabar>>h1d");
-	//ch1->Draw("orig_mlambda>>h1a", "orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119");
-	//ch2->Draw("orig_mlambda>>h1b", "orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119");
-	//ch1->Draw("orig_mlambda>>h1a", "orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119 && orig_m2gamma > 0.527 && orig_m2gamma < 0.569");
-	//ch2->Draw("orig_mlambda>>h1b", "orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119 && orig_m2gamma > 0.527 && orig_m2gamma < 0.569");
-	//ch1->Draw("orig_mlambda>>h1a", "orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119 && orig_m2gamma > 0.527 && orig_m2gamma < 0.569 && 4C_chisq < 37");
-	//ch2->Draw("orig_mlambda>>h1b", "orig_mlambdabar > 1.113 && orig_mlambdabar < 1.119 && orig_m2gamma > 0.527 && orig_m2gamma < 0.569 && 4C_chisq < 37");
-	h1c->GetXaxis()->SetTitle("M(#bar{p}#pi^{+}#gamma#gamma) (GeV/c^{2})");
-	h1c->GetYaxis()->SetTitle(Form("Events/%.5f GeV/c^{2}", (xup1 - xlow1) / nbins1));
-	h1c->GetXaxis()->CenterTitle();
-	h1c->GetYaxis()->CenterTitle();
-	h1c->SetLineColor(4);
-	h1c->SetLineWidth(1);
-
-	h1a->Scale(h1c->Integral() / h1a->Integral(), "nosw2");
-	h1b->Scale(h1c->Integral() / h1b->Integral());
-	h1c->Sumw2();
-	h1d->Scale(h1c->Integral() / h1d->Integral(), "nosw2");
-	h1e->Scale(h1c->Integral() / h1e->Integral(), "nosw2");
 	//h1d->Scale(h1c->GetMaximum() / h1d->GetMaximum(), "nosw2");
 	//h1a->Scale(h1b->Integral()/h1a->Integral());
 
-	h1c->SetMarkerStyle(8);
-	h1c->SetMarkerColor(1);
-	h1c->SetMarkerSize(1);
-	h1c->SetLineColor(1);
-	h1c->SetLineWidth(1);
+	h1c->Add(h1b, 1);
 
-	//h1e->SetMarkerStyle(22);
-	//h1e->SetMarkerColor(2);
-	//h1e->SetMarkerSize(1);
-	//h1e->SetLineColor(2);
-	//h1e->SetLineWidth(1);
+	h1a->SetMarkerStyle(8);
+	h1a->SetMarkerColor(kBlack);
+	h1a->SetMarkerSize(1);
+	h1a->SetLineColor(kBlack);
+	h1a->SetLineWidth(1);
 
-	h1d->SetLineColor(8);
-	//h1d->SetLineStyle(7);
-	h1d->SetLineWidth(1);
+	h1b->SetLineColor(kGreen);
+
+	h1c->SetLineColor(kBlue);
+
+	h1d->SetLineColor(kRed);
+
+	h1e->SetLineColor(kOrange);
 
 	//h1b->SetLineStyle(1);
 	//h1a->SetMinimum(0);//Outer shaft border minimum
 	//h1b->SetMinimum(0);//Outer shaft border minimum
-	h1c->Draw("");
-	//h1b->Draw("SAME");
-	//h1a->Draw("SAME");
-	//h1d->Draw("SAME");
+
+	h1a->Draw("");
+	h1b->Draw("SAME");
+	h1c->Draw("SAME");
+	h1d->Draw("SAME");
 	h1e->Draw("SAME");
 
-	TLegend *lg1 = new TLegend(0.68, 0.68, 0.86, 0.88);
+	TLegend *lg1 = new TLegend(0.68, 0.58, 0.86, 0.88);
 	lg1->SetHeader("#sqrt{S}=3.686GeV");
-	//lg1->AddEntry(h1a, "EX MC", "l");
-	//lg1->AddEntry(h1b, "IN MC", "pl");
-	lg1->AddEntry(h1c, "DATA", "pl");
-	//lg1->AddEntry(h1d, "BKG(#Sigma^{0}#bar{#Sigma}^{0})", "l");
-	//lg1->AddEntry(h1d, "BKG(#gamma#Lambda#bar{#Lambda})", "l");
-	lg1->AddEntry(h1e, "FDC", "pl");
+	lg1->AddEntry(h1a, "DATA", "pl");
+	lg1->AddEntry(h1b, "BKG(Sideband)", "l");
+	lg1->AddEntry(h1c, "Model(1670)+BKG", "l");
+	lg1->AddEntry(h1d, "PHSP Only", "l");
+	lg1->AddEntry(h1e, "#Lambda(1670) Only", "l");
 	lg1->SetFillColor(0);
 	lg1->SetTextFont(42);
 	lg1->SetTextSize(0.05);

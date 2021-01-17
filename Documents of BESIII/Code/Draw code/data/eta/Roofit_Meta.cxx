@@ -1,11 +1,14 @@
 {
     using namespace RooFit;
 
-    TFile *f1 = new TFile("/mnt/e/Work/IHEPBOX/root/0912MCmix/etaMC4_NoGam.root");
+    TFile *f1 = new TFile("/mnt/e/Work/IHEPBOX/root/psip/mc/etaMC7_FitGam.root");
     TTree *t1 = (TTree *)f1->Get("trkRes");
 
-    TFile *f2 = new TFile("/mnt/e/Work/IHEPBOX/root/0912data/data4_eta_NoGam.root");
+    TFile *f2 = new TFile("/mnt/e/Work/IHEPBOX/root/psip/data/data7_eta_FitGam.root");
     TTree *t2 = (TTree *)f2->Get("trkRes");
+
+    TFile *f3 = new TFile("/mnt/e/Work/IHEPBOX/root/psip/data/3773data7_eta_FitGam.root");
+    TTree *t3 = (TTree *)f3->Get("trkRes");
 
     Double_t xlow1 = 0.46;
     Double_t xup1 = 0.63;
@@ -33,11 +36,15 @@
     RooRealVar c1("c1", "c1", -10000.0, 10000.0);
     RooChebychev bkgpdf("bkgpdf", "bkgpdf", orig_m2gamma, RooArgList(c0, c1));
 
+    RooDataSet qeddata("qeddata", "qeddata", t3, orig_m2gamma);
+    RooKeysPdf qedpdf("qedpdf", "qedpdf", orig_m2gamma, qeddata, RooKeysPdf::MirrorBoth, 1);
+
     //-----Construct signal+background PDF------
 
-    RooRealVar nsig("nsig", "nsig", 230, 0, 500);
-    RooRealVar nbkg("nbkg", "nbkg", 200, 0, 500);
-    RooAddPdf sum("sum", "sum", RooArgList(sigpdf, bkgpdf), RooArgList(nsig, nbkg));
+    RooRealVar nsig("nsig", "nsig", 200, 0, 352);
+    RooRealVar nbkg("nbkg", "nbkg", 150, 0, 352);
+    RooRealVar nqed("nqed", "nqed", 21.03);
+    RooAddPdf sum("sum", "sum", RooArgList(sigpdf, bkgpdf, qedpdf), RooArgList(nsig, nbkg, nqed));
 
     //------Fit------
 
@@ -57,6 +64,7 @@
     sum.plotOn(metaframe, RooFit::LineColor(kBlack));
     sum.plotOn(metaframe, Components("sigpdf"), LineColor(kViolet)); //, LineStyle(kDashed));
     sum.plotOn(metaframe, Components("bkgpdf"), LineColor(kBlue));   //, LineStyle(kDashed));
+    sum.plotOn(metaframe, Components("qedpdf"), LineColor(kOrange)); //, LineStyle(kDashed));
 
     metaframe->Draw();
 
@@ -85,6 +93,10 @@
     TString Par2E = Form("%3.1f", nbkg.getError());
     TString Par2 = "N_{bkg} = " + Par2V + " #pm " + Par2E;
 
+    TString Par3V = Form("%5.1f", nqed.getVal());
+    TString Par3E = Form("%3.1f", nqed.getError());
+    TString Par3 = "N_{QED} = " + Par3V;
+
     TString Par10C = Form("%5.2f", curve->chiSquare(*histo, nParsToFit));
     TString Par10 = "#chi^{2}/ndf = " + Par10C;
 
@@ -94,6 +106,9 @@
 
     text = pt->AddText(Par2);
     ((TText *)pt->GetListOfLines()->Last())->SetTextColor(kBlue);
+
+    text = pt->AddText(Par3);
+    ((TText *)pt->GetListOfLines()->Last())->SetTextColor(kOrange);
 
     text = pt->AddText(Par10);
 
