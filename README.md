@@ -2,14 +2,14 @@
 # 我在广西师大这几年都干了点啥。
 ## 更新日志
 - *Coming soon*  
-FDC相关内容  
+- 2021.01.23  
+[FDC基础内容](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/FDC)的教程，详细说明见FDC文件夹内的README。  
 - 2021.01.17  
-日常更新：[画图脚本](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Draw%20code)  
+日常更新：[画图脚本](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Draw%20code)。  
 - 2021.01.04  
-上传[显著性计算工具](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Tools/significance.cxx)\(Powered by root\)，使用方式为`root ./significance.cxx`。  
-\(Roofit得到的为Likelihood值，FDC得到的为s值\)
+上传[显著性计算工具](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Tools/significance.cxx)\(Powered by root\)。  
 - 2020.11.16  
-更新[画图脚本](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Draw%20code)，详细说明在`Draw Code`目录下  
+更新[画图脚本](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/Code/Draw%20code)，详细说明在`Draw Code`目录下。  
 - 2020.11.13  
 上传“[2020实验物理中心研究生入所培训](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/2020%20Experimental%20Physics%20Center%20Graduate%20Admission%20Training)”相关课件。 -- Powered by Honghong Zhang  
 ~~上传我个人修改的`Roofit`的Code：Roofit_Mpi0.cxx~~  
@@ -55,10 +55,10 @@ FDC相关内容
 3. 站外导航
 4. <等待添加>
 5. 最后唠叨几句
-## 1. 简介\(~~不想看就往后翻吧~~ 不好好看还想开军舰？\)
-- 之所以要建立这个项目，最主要的原因就是闲得慌233333  
+## 1. 简介  
+- 之所以要建立这个项目，最主要的原因是研一的时候闲得慌。  
 - 正经一点地说就是一个是想看看自己这三年都做了什么，都学了什么，学会了什么，另一个就是为师弟师妹们留下一点能够参考的资料，希望可以用得上，用不上是最好的，因为这说明青出于蓝而胜于蓝，是好事。  
-- 会的东西不多，能写出来、做成文件传上来的更是少之又少，鄙人才疏学浅，说的是为后人留下资料，但是在大佬眼中无异于班门弄斧，希望诸位大佬能少喷我，同时也欢迎任何人给我提出意见指出错误，为这个项目贡献出自己的一份力量。  
+- 会的东西不多，能写出来、做成文件传上来的更是少之又少，本人才疏学浅，说的是为后人留下资料，但是在大佬眼中无异于班门弄斧，希望诸位大佬能少喷我，同时也欢迎任何人给我提出意见指出错误，为这个项目贡献出自己的一份力量。  
 - 我在本科的时候，和我一级考上本校的同学被新来的教授吐槽计算机和编程太差，我个人因为对编程有点兴趣，所以比其他人早起步了一点，但也算不上优秀。我个人认为，编程和计算机的技术对我们学物理的人来说，绝对算不上是第一生产力，但是却是我们非常依赖的工具，能够极大地提高我们在工作与学习中的效率，所以应该引起我们足够的重视，不要等到用的时候才想起来学。  
 - 很多内容是不需要我们懂很多，但是至少要会基础内容，更多的是什么时候用，现 [百度](https://www.baidu.com/) 就行了，但是众多结果中，我还是更推荐 [CSDN](https://www.csdn.net/) 、 [简书](https://www.jianshu.com/) 、 [博客园](https://www.cnblogs.com/) 等这几家的内容，至于教程，我看的比较多的是 [菜鸟教程](https://www.runoob.com/) ，感觉还是很不错的，有些不好理解或者没有讲到的，CSDN上应该会有补充或者详细解答，同时 [B站](https://www.bilibili.com/) 上面也有很多有关的教程，而且讲的很详细。  
 - 对于课件之类的，还是要以老师的为准，有些老师是课件一年一换，或者有所更新。数值计算方法中的答案Copy之前看清楚今年的题目和我做的题目是否一样，否则翻车概不负责。  
@@ -87,7 +87,7 @@ FDC相关内容
 - 学习如何工作的时候，刚开始是很痛苦的，漫天的原理与抽象的说教，只有真正上机操作之后，才会开始慢慢领悟所学的理论内容。不要怕犯错，不翻车怎么进步，翻了车就要有被批评的觉悟，翻车不可怕，可怕的是不知道翻车的原因以及把车翻回来的方法。  
 - 有想法是OK的，但是要跟导师说，早点说。想读博或者混毕业找工作都行，都是没问题的，但是要跟导师好好商量。还有就是不要勉强自己，做不来就承认自己普通，在师大可能觉得自己还挺好，来了北京就会发现自己就是最普通的。承认不足并不难，死要面子活受罪。  
 - 来北京之后的进步速度飞快，完全不是在师大能比的，这里的师兄师姐可以说是卧虎藏龙。  
-- 我觉得有句话说的挺好的：“不是所有人都有义务帮助你。”
+- “不是所有人都有义务帮助你。”
 
 共勉。  
 \(施工中\)  
