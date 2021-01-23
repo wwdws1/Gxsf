@@ -2,6 +2,7 @@
 # 我在广西师大这几年都干了点啥。
 ## 更新日志
 - *Coming soon*  
+FDC个人使用的脚本，系统误差与统计误差的做法等。  
 - 2021.01.23  
 [FDC基础内容](https://gitee.com/wwdws1/Gxsf/tree/master/Documents%20of%20BESIII/FDC)的教程，详细说明见FDC文件夹内的README。  
 - 2021.01.17  
